@@ -6,44 +6,17 @@ const Index = () => (
   </div>
 );
 
-/* ─── Герб РФ (двуглавый орёл, упрощённый SVG) ─── */
+/* ─── Герб РФ — официальное изображение ─── */
 const CoatOfArms = () => (
-  <svg viewBox="0 0 120 130" width="72" height="78" style={{ display: 'block', margin: '0 auto' }}>
-    {/* Щит */}
-    <ellipse cx="60" cy="68" rx="36" ry="42" fill="#c8102e" stroke="#8a5fa0" strokeWidth="1.2"/>
-    {/* Всадник (Георгий Победоносец) — упрощённо */}
-    <ellipse cx="60" cy="68" rx="18" ry="22" fill="#c8102e"/>
-    <text x="60" y="76" textAnchor="middle" fontSize="22" fill="#ffd700">⚔</text>
-    {/* Тело орла */}
-    <ellipse cx="60" cy="52" rx="22" ry="18" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.5"/>
-    {/* Левое крыло */}
-    <path d="M38,52 Q14,28 18,14 Q28,34 40,44 Z" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.4"/>
-    {/* Правое крыло */}
-    <path d="M82,52 Q106,28 102,14 Q92,34 80,44 Z" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.4"/>
-    {/* Левая голова */}
-    <circle cx="47" cy="28" r="9" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.5"/>
-    {/* Правая голова */}
-    <circle cx="73" cy="28" r="9" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.5"/>
-    {/* Левая корона */}
-    <path d="M41,20 L44,13 L47,19 L50,12 L53,19 L56,13 L59,20 Z" fill="#ffd700"/>
-    {/* Правая корона */}
-    <path d="M67,20 L70,13 L73,19 L76,12 L79,19 L82,13 L85,20 Z" fill="#ffd700"/>
-    {/* Средняя корона */}
-    <path d="M52,8 L55,1 L58,7 L61,0 L64,7 L67,1 L70,8 Z" fill="#ffd700"/>
-    {/* Клювы */}
-    <path d="M42,32 L38,35 L44,34 Z" fill="#ffd700"/>
-    <path d="M78,32 L82,35 L76,34 Z" fill="#ffd700"/>
-    {/* Скипетр и держава */}
-    <line x1="60" y1="58" x2="46" y2="72" stroke="#ffd700" strokeWidth="1.5"/>
-    <circle cx="44" cy="73" r="3" fill="#ffd700"/>
-    <line x1="60" y1="58" x2="74" y2="72" stroke="#ffd700" strokeWidth="1.5"/>
-    <circle cx="75" cy="70" r="2" fill="#ffd700"/>
-    <line x1="75" y1="68" x2="75" y2="63" stroke="#ffd700" strokeWidth="1"/>
-    <circle cx="75" cy="62" r="1.5" fill="#ffd700"/>
-    {/* Лапы */}
-    <path d="M48,64 L42,74 L46,72 L44,80 L50,70 Z" fill="#2a1a00"/>
-    <path d="M72,64 L78,74 L74,72 L76,80 L70,70 Z" fill="#2a1a00"/>
-  </svg>
+  <div style={{ textAlign: 'center', margin: '0 auto' }}>
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Coat_of_Arms_of_the_Russian_Federation_%28black%29.svg/200px-Coat_of_Arms_of_the_Russian_Federation_%28black%29.svg.png"
+      alt="Герб РФ"
+      width={70}
+      height={80}
+      style={{ display: 'block', margin: '0 auto', filter: 'sepia(40%) hue-rotate(260deg) brightness(0.7)' }}
+    />
+  </div>
 );
 
 /* ─── Орнаментальная лента (бантик сверху) ─── */
