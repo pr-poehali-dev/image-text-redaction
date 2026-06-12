@@ -1,272 +1,297 @@
-const Index = () => {
-  return (
-    <div
-      className="min-h-screen flex items-center justify-center py-10 px-4"
-      style={{ background: '#1e1e1e' }}
-    >
-      <div className="w-full max-w-[680px]">
-        <Certificate />
-      </div>
+const Index = () => (
+  <div className="min-h-screen flex items-center justify-center py-10 px-4" style={{ background: '#1a1a1a' }}>
+    <div className="w-full max-w-[700px]">
+      <Certificate />
     </div>
-  );
-};
+  </div>
+);
 
-const Certificate = () => {
-  return (
+/* ─── Герб РФ (двуглавый орёл, упрощённый SVG) ─── */
+const CoatOfArms = () => (
+  <svg viewBox="0 0 120 130" width="72" height="78" style={{ display: 'block', margin: '0 auto' }}>
+    {/* Щит */}
+    <ellipse cx="60" cy="68" rx="36" ry="42" fill="#c8102e" stroke="#8a5fa0" strokeWidth="1.2"/>
+    {/* Всадник (Георгий Победоносец) — упрощённо */}
+    <ellipse cx="60" cy="68" rx="18" ry="22" fill="#c8102e"/>
+    <text x="60" y="76" textAnchor="middle" fontSize="22" fill="#ffd700">⚔</text>
+    {/* Тело орла */}
+    <ellipse cx="60" cy="52" rx="22" ry="18" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.5"/>
+    {/* Левое крыло */}
+    <path d="M38,52 Q14,28 18,14 Q28,34 40,44 Z" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.4"/>
+    {/* Правое крыло */}
+    <path d="M82,52 Q106,28 102,14 Q92,34 80,44 Z" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.4"/>
+    {/* Левая голова */}
+    <circle cx="47" cy="28" r="9" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.5"/>
+    {/* Правая голова */}
+    <circle cx="73" cy="28" r="9" fill="#2a1a00" stroke="#8a5fa0" strokeWidth="0.5"/>
+    {/* Левая корона */}
+    <path d="M41,20 L44,13 L47,19 L50,12 L53,19 L56,13 L59,20 Z" fill="#ffd700"/>
+    {/* Правая корона */}
+    <path d="M67,20 L70,13 L73,19 L76,12 L79,19 L82,13 L85,20 Z" fill="#ffd700"/>
+    {/* Средняя корона */}
+    <path d="M52,8 L55,1 L58,7 L61,0 L64,7 L67,1 L70,8 Z" fill="#ffd700"/>
+    {/* Клювы */}
+    <path d="M42,32 L38,35 L44,34 Z" fill="#ffd700"/>
+    <path d="M78,32 L82,35 L76,34 Z" fill="#ffd700"/>
+    {/* Скипетр и держава */}
+    <line x1="60" y1="58" x2="46" y2="72" stroke="#ffd700" strokeWidth="1.5"/>
+    <circle cx="44" cy="73" r="3" fill="#ffd700"/>
+    <line x1="60" y1="58" x2="74" y2="72" stroke="#ffd700" strokeWidth="1.5"/>
+    <circle cx="75" cy="70" r="2" fill="#ffd700"/>
+    <line x1="75" y1="68" x2="75" y2="63" stroke="#ffd700" strokeWidth="1"/>
+    <circle cx="75" cy="62" r="1.5" fill="#ffd700"/>
+    {/* Лапы */}
+    <path d="M48,64 L42,74 L46,72 L44,80 L50,70 Z" fill="#2a1a00"/>
+    <path d="M72,64 L78,74 L74,72 L76,80 L70,70 Z" fill="#2a1a00"/>
+  </svg>
+);
+
+/* ─── Орнаментальная лента (бантик сверху) ─── */
+const TopRibbon = () => (
+  <svg viewBox="0 0 400 40" width="100%" height="40" style={{ display: 'block' }}>
+    <defs>
+      <linearGradient id="ribGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="#e8c8f0" stopOpacity="0.3"/>
+        <stop offset="50%" stopColor="#b070c8"/>
+        <stop offset="100%" stopColor="#e8c8f0" stopOpacity="0.3"/>
+      </linearGradient>
+    </defs>
+    {/* Горизонтальная лента */}
+    <rect x="0" y="14" width="400" height="12" fill="url(#ribGrad)" rx="2"/>
+    {/* Бантик в центре */}
+    <path d="M180,20 Q160,8 150,20 Q160,32 180,20 Z" fill="#b070c8" opacity="0.8"/>
+    <path d="M220,20 Q240,8 250,20 Q240,32 220,20 Z" fill="#b070c8" opacity="0.8"/>
+    <circle cx="200" cy="20" r="5" fill="#8a4fa8"/>
+    <circle cx="200" cy="20" r="2" fill="#d4a0e8"/>
+    {/* Узоры по краям ленты */}
+    {[0,1,2,3,4,5,6,7,8,9].map(i => (
+      <g key={i}>
+        <circle cx={20 + i*36} cy="20" r="2.5" fill="#8a4fa8" opacity="0.5"/>
+        <circle cx={20 + i*36} cy="20" r="1" fill="#d4a0e8"/>
+      </g>
+    ))}
+  </svg>
+);
+
+/* ─── Гильошная сетка (фон документа) ─── */
+const GuillochePattern = () => (
+  <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.06, pointerEvents: 'none', zIndex: 1 }}
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="gc" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="15" cy="15" r="12" fill="none" stroke="#8a4fa8" strokeWidth="0.4"/>
+        <circle cx="15" cy="15" r="7" fill="none" stroke="#8a4fa8" strokeWidth="0.3"/>
+        <line x1="3" y1="15" x2="27" y2="15" stroke="#8a4fa8" strokeWidth="0.2"/>
+        <line x1="15" y1="3" x2="15" y2="27" stroke="#8a4fa8" strokeWidth="0.2"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#gc)"/>
+  </svg>
+);
+
+/* ─── Угловые орнаменты ─── */
+const CornerOrnament = ({ rotate }: { rotate: number }) => (
+  <svg viewBox="0 0 50 50" width="40" height="40" style={{ transform: `rotate(${rotate}deg)` }}>
+    <path d="M2,2 L20,2 Q2,2 2,20 Z" fill="none" stroke="#8a4fa8" strokeWidth="1.5"/>
+    <path d="M2,2 L14,2 Q2,2 2,14 Z" fill="#8a4fa8" opacity="0.3"/>
+    <circle cx="6" cy="6" r="2.5" fill="#8a4fa8" opacity="0.7"/>
+    <path d="M10,2 Q18,10 18,18 Q10,10 2,10" fill="none" stroke="#8a4fa8" strokeWidth="0.8" opacity="0.6"/>
+    <circle cx="20" cy="2" r="1.5" fill="#8a4fa8" opacity="0.5"/>
+    <circle cx="2" cy="20" r="1.5" fill="#8a4fa8" opacity="0.5"/>
+  </svg>
+);
+
+const Certificate = () => (
+  <div style={{
+    background: '#fce8f4',
+    fontFamily: "'Cormorant Garamond', serif",
+    position: 'relative',
+    boxShadow: '0 12px 60px rgba(0,0,0,0.75)',
+    overflow: 'hidden',
+  }}>
+    {/* Гильош фон */}
+    <GuillochePattern />
+
+    {/* Внешняя граница */}
+    <div style={{ border: '7px solid #8a5fa0', position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 20 }}/>
+    {/* Внутренняя тонкая граница */}
+    <div style={{ border: '1.5px solid #c090d8', position: 'absolute', inset: '13px', pointerEvents: 'none', zIndex: 20 }}/>
+
+    {/* Левая полосатая колонка */}
     <div style={{
-      background: '#fce8f3',
-      fontFamily: "'Cormorant Garamond', serif",
-      position: 'relative',
-      boxShadow: '0 10px 50px rgba(0,0,0,0.7)',
-    }}>
-      {/* Thick purple outer border */}
-      <div style={{ border: '7px solid #8a5fa0', position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 10 }} />
-      {/* Thin inner border */}
-      <div style={{ border: '1.5px solid #b88fc8', position: 'absolute', inset: '12px', pointerEvents: 'none', zIndex: 10 }} />
+      position: 'absolute', left: 20, top: 13, bottom: 13, width: 12, zIndex: 5,
+      background: 'repeating-linear-gradient(to bottom, #9060b0 0px, #9060b0 7px, #e8c0f0 7px, #e8c0f0 12px)',
+    }}/>
+    {/* Правая полосатая колонка */}
+    <div style={{
+      position: 'absolute', right: 20, top: 13, bottom: 13, width: 12, zIndex: 5,
+      background: 'repeating-linear-gradient(to bottom, #9060b0 0px, #9060b0 7px, #e8c0f0 7px, #e8c0f0 12px)',
+    }}/>
 
-      {/* Left stripe column */}
-      <div style={{
-        position: 'absolute', left: 20, top: 12, bottom: 12, width: 10, zIndex: 5,
-        background: 'repeating-linear-gradient(to bottom, #8a5fa0 0px, #8a5fa0 8px, transparent 8px, transparent 13px)',
-      }} />
-      {/* Right stripe column */}
-      <div style={{
-        position: 'absolute', right: 20, top: 12, bottom: 12, width: 10, zIndex: 5,
-        background: 'repeating-linear-gradient(to bottom, #8a5fa0 0px, #8a5fa0 8px, transparent 8px, transparent 13px)',
-      }} />
+    {/* Угловые орнаменты */}
+    <div style={{ position: 'absolute', top: 4, left: 4, zIndex: 21 }}><CornerOrnament rotate={0}/></div>
+    <div style={{ position: 'absolute', top: 4, right: 4, zIndex: 21 }}><CornerOrnament rotate={90}/></div>
+    <div style={{ position: 'absolute', bottom: 4, right: 4, zIndex: 21 }}><CornerOrnament rotate={180}/></div>
+    <div style={{ position: 'absolute', bottom: 4, left: 4, zIndex: 21 }}><CornerOrnament rotate={270}/></div>
 
-      {/* Corner diamonds */}
-      {[
-        { top: 4, left: 4 }, { top: 4, right: 4 },
-        { bottom: 4, left: 4 }, { bottom: 4, right: 4 },
-      ].map((s, i) => (
-        <div key={i} style={{
-          position: 'absolute', ...s,
-          color: '#8a5fa0', fontSize: 16, lineHeight: 1, zIndex: 12,
-          width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>✦</div>
-      ))}
+    {/* Контент */}
+    <div style={{ padding: '0 58px 28px 58px', position: 'relative', zIndex: 10 }}>
 
-      {/* Watermark */}
-      <div style={{
-        position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
-        justifyContent: 'center', pointerEvents: 'none', zIndex: 1, overflow: 'hidden',
-      }}>
-        <div style={{
-          fontSize: 140, color: '#8a5fa0', opacity: 0.04,
-          transform: 'rotate(-25deg)', fontFamily: 'serif',
-          whiteSpace: 'nowrap', userSelect: 'none',
-        }}>ЗАГС</div>
+      {/* Лента-бантик сверху */}
+      <TopRibbon />
+
+      {/* Герб РФ */}
+      <div style={{ marginTop: 4, marginBottom: 6 }}>
+        <CoatOfArms />
       </div>
 
-      {/* === INNER CONTENT === */}
-      <div style={{ padding: '16px 56px 28px 56px', position: 'relative', zIndex: 2 }}>
-
-        {/* Top bow / ribbon decoration */}
-        <div style={{ textAlign: 'center', marginBottom: 4 }}>
-          <div style={{ fontSize: 20, color: '#b88fc8', letterSpacing: 8, lineHeight: 1 }}>~ ~ ~</div>
-        </div>
-
-        {/* TITLE */}
-        <div style={{ textAlign: 'center', marginBottom: 14 }}>
-          <div style={{
-            fontFamily: "'Oswald', sans-serif",
-            fontSize: 21, fontWeight: 600,
-            letterSpacing: '0.13em',
-            color: '#1a0030', lineHeight: 1.4,
-          }}>
-            СВИДЕТЕЛЬСТВО<br />О СМЕРТИ
-          </div>
-        </div>
-
-        {/* ФИО */}
-        <CRow value="Скобелева" sub="фамилия" center />
-        <CRow value="Оксана Петровна" sub="имя, отчество" center />
-        <CRow value="гражданка России" sub="гражданство" center />
-
-        {/* Дата рождения */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, marginTop: 7 }}>
-          <Label>«</Label>
-          <CInline value="03" sub="число" w={36} />
-          <Label>»</Label>
-          <CInline value="апреля" sub="месяц" w={90} />
-          <CInline value="1983" sub="год рождения" w={60} />
-          <Label>г.</Label>
-        </div>
-
-        {/* Место рождения */}
-        <CRow value="г. Судак" sub="место рождения" />
-        <CRow value="Крымская область" sub="" />
-
-        <CDash />
-
-        {/* Умер(ла) */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, marginTop: 4 }}>
-          <Label>умер(ла)</Label>
-          <CInline value="14.05.2026" sub="число, месяц, год (цифрами и словами)" w={180} />
-        </div>
-
-        <CRow value="четырнадцатого мая" sub="" italic center />
-        <CRow value="две тысячи двадцать шестого года" sub="" italic center />
-
-        {/* О чём */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap', gap: 4, marginTop: 7 }}>
-          <Label>о чем</Label>
-          <CInline value="2026" sub="" w={52} />
-          <Label>года</Label>
-          <CInline value="мая" sub="" w={64} />
-          <Label>месяца</Label>
-          <CInline value="14" sub="" w={36} />
-          <Label>числа</Label>
-        </div>
-
-        {/* Запись акта */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, marginTop: 5 }}>
-          <Label>составлена запись акта о смерти №</Label>
-          <CInline value="1397" sub="" w={60} />
-        </div>
-
-        {/* Место смерти */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, marginTop: 7 }}>
-          <Label style={{ whiteSpace: 'nowrap' }}>Место смерти</Label>
-          <CInline value="г. Ярославль" sub="" w={160} />
-        </div>
-
-        <CDash />
-
-        <CRow value="Россия" sub="" center />
-
-        {/* Место регистрации */}
-        <div style={{ marginTop: 8 }}>
-          <div style={{ fontSize: 11, color: '#666', fontStyle: 'italic' }}>Место государственной регистрации</div>
-          <div style={{
-            textAlign: 'center', fontWeight: 700, fontSize: 16,
-            color: '#1a0030', marginTop: 3,
-          }}>
-            Перовский отдел ЗАГС Управления ЗАГС Ярославля
-          </div>
-          <div style={{ textAlign: 'center', fontSize: 10, color: '#aaa', fontStyle: 'italic' }}>
-            наименование органа записи актов гражданского состояния
-          </div>
-        </div>
-
-        <CDash />
-
-        {/* Stamp + Date + Signature */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', marginTop: 10, gap: 16 }}>
-
-          {/* Stamp circle */}
-          <div style={{
-            width: 96, height: 96, borderRadius: '50%', flexShrink: 0,
-            border: '2px solid #3a5caa',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            opacity: 0.5,
-          }}>
-            <div style={{ textAlign: 'center', fontSize: 7.5, color: '#3a5caa', lineHeight: 1.6 }}>
-              М.П.<br />ЗАГС<br />ЯРОСЛАВЛЬ
-            </div>
-          </div>
-
-          {/* Signature block */}
-          <div style={{ flex: 1 }}>
-            {/* Дата выдачи */}
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, marginBottom: 10 }}>
-              <Label>Дата выдачи «</Label>
-              <CInline value="15" sub="" w={30} />
-              <Label>»</Label>
-              <CInline value="мая" sub="" w={60} />
-              <CInline value="2026" sub="" w={50} />
-              <Label>г.</Label>
-            </div>
-
-            <div style={{ fontSize: 11, color: '#555', fontStyle: 'italic', lineHeight: 1.5 }}>
-              Руководитель органа<br />записи актов гражданского состояния
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 12, marginTop: 8 }}>
-              <div style={{ width: 80, borderBottom: '1px solid #888' }} />
-              <span style={{ fontSize: 15, color: '#1a0030' }}>И. А. Зайцева</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Serial number */}
+      {/* Заголовок */}
+      <div style={{ textAlign: 'center', marginBottom: 14 }}>
         <div style={{
-          textAlign: 'center', marginTop: 18, paddingTop: 10,
-          borderTop: '1px solid #c4a0d8',
+          fontFamily: "'Oswald', sans-serif",
+          fontSize: 20, fontWeight: 600,
+          letterSpacing: '0.14em',
+          color: '#1a0030', lineHeight: 1.45,
         }}>
-          <span style={{
-            fontFamily: "'Oswald', sans-serif",
-            fontSize: 15, letterSpacing: '0.22em',
-            color: '#1a0030', fontWeight: 500,
-          }}>
-            VII-МЮ &nbsp; № &nbsp; 619054
-          </span>
+          СВИДЕТЕЛЬСТВО<br/>О СМЕРТИ
+        </div>
+      </div>
+
+      {/* ФИО */}
+      <CRow value="Скобелева" sub="фамилия" center/>
+      <CRow value="Оксана Петровна" sub="имя, отчество" center/>
+      <CRow value="гражданка России" sub="гражданство" center/>
+
+      {/* Дата рождения */}
+      <div style={{ display:'flex', alignItems:'flex-end', gap:4, marginTop:8 }}>
+        <Lbl>«</Lbl>
+        <CInline value="03" sub="число" w={36}/>
+        <Lbl>»</Lbl>
+        <CInline value="апреля" sub="месяц" w={90}/>
+        <CInline value="1983" sub="год рождения" w={60}/>
+        <Lbl>г.</Lbl>
+      </div>
+
+      {/* Место рождения */}
+      <CRow value="г. Судак" sub="место рождения"/>
+      <CRow value="Крымская область" sub=""/>
+      <CDash/>
+
+      {/* Умер(ла) */}
+      <div style={{ display:'flex', alignItems:'flex-end', gap:8, marginTop:4 }}>
+        <Lbl>умер(ла)</Lbl>
+        <CInline value="14.05.2026" sub="число, месяц, год (цифрами и словами)" w={190}/>
+      </div>
+      <CRow value="четырнадцатого мая" sub="" italic center/>
+      <CRow value="две тысячи двадцать шестого года" sub="" italic center/>
+
+      {/* О чём */}
+      <div style={{ display:'flex', alignItems:'flex-end', flexWrap:'wrap', gap:4, marginTop:8 }}>
+        <Lbl>о чем</Lbl>
+        <CInline value="2026" sub="" w={52}/>
+        <Lbl>года</Lbl>
+        <CInline value="мая" sub="" w={64}/>
+        <Lbl>месяца</Lbl>
+        <CInline value="14" sub="" w={36}/>
+        <Lbl>числа</Lbl>
+      </div>
+
+      {/* Запись акта */}
+      <div style={{ display:'flex', alignItems:'flex-end', gap:6, marginTop:5 }}>
+        <Lbl>составлена запись акта о смерти №</Lbl>
+        <CInline value="1397" sub="" w={60}/>
+      </div>
+
+      {/* Место смерти */}
+      <div style={{ display:'flex', alignItems:'flex-end', gap:8, marginTop:8 }}>
+        <Lbl style={{ whiteSpace:'nowrap' }}>Место смерти</Lbl>
+        <CInline value="г. Ярославль" sub="" w={170}/>
+      </div>
+      <CDash/>
+      <CRow value="Россия" sub="" center/>
+
+      {/* Место регистрации */}
+      <div style={{ marginTop:8 }}>
+        <div style={{ fontSize:11, color:'#666', fontStyle:'italic' }}>Место государственной регистрации</div>
+        <div style={{ textAlign:'center', fontWeight:700, fontSize:16, color:'#1a0030', marginTop:3 }}>
+          Перовский отдел ЗАГС Управления ЗАГС Ярославля
+        </div>
+        <div style={{ textAlign:'center', fontSize:10, color:'#aaa', fontStyle:'italic' }}>
+          наименование органа записи актов гражданского состояния
+        </div>
+      </div>
+
+      <CDash/>
+
+      {/* Печать + Подпись */}
+      <div style={{ display:'flex', alignItems:'flex-end', gap:16, marginTop:10 }}>
+        {/* Печать */}
+        <div style={{ width:96, height:96, borderRadius:'50%', flexShrink:0, border:'2px solid #3a5caa', display:'flex', alignItems:'center', justifyContent:'center', opacity:0.5 }}>
+          <div style={{ textAlign:'center', fontSize:7.5, color:'#3a5caa', lineHeight:1.6 }}>М.П.<br/>ЗАГС<br/>ЯРОСЛАВЛЬ</div>
         </div>
 
+        {/* Дата выдачи + подпись */}
+        <div style={{ flex:1 }}>
+          <div style={{ display:'flex', alignItems:'flex-end', gap:4, marginBottom:10 }}>
+            <Lbl>Дата выдачи «</Lbl>
+            <CInline value="15" sub="" w={30}/>
+            <Lbl>»</Lbl>
+            <CInline value="мая" sub="" w={60}/>
+            <CInline value="2026" sub="" w={50}/>
+            <Lbl>г.</Lbl>
+          </div>
+          <div style={{ fontSize:11, color:'#555', fontStyle:'italic', lineHeight:1.5 }}>
+            Руководитель органа<br/>записи актов гражданского состояния
+          </div>
+          <div style={{ display:'flex', alignItems:'flex-end', gap:12, marginTop:8 }}>
+            <div style={{ width:80, borderBottom:'1px solid #888' }}/>
+            <span style={{ fontSize:15, color:'#1a0030' }}>И. А. Зайцева</span>
+          </div>
+        </div>
       </div>
+
+      {/* Серийный номер */}
+      <div style={{ textAlign:'center', marginTop:18, paddingTop:10, borderTop:'1px solid #c4a0d8' }}>
+        <span style={{ fontFamily:"'Oswald', sans-serif", fontSize:15, letterSpacing:'0.22em', color:'#1a0030', fontWeight:500 }}>
+          VII-МЮ &nbsp; № &nbsp; 619054
+        </span>
+      </div>
+
     </div>
-  );
-};
+  </div>
+);
 
-/* ---- sub-components ---- */
+/* ── Вспомогательные компоненты ── */
 
-const CRow = ({
-  value, sub, italic = false, center = false,
-}: {
-  value: string; sub: string; italic?: boolean; center?: boolean;
-}) => (
-  <div style={{ marginTop: 4, textAlign: center ? 'center' : 'left' }}>
+const CRow = ({ value, sub, italic=false, center=false }: { value:string; sub:string; italic?:boolean; center?:boolean }) => (
+  <div style={{ marginTop:4, textAlign: center ? 'center' : 'left' }}>
     <div style={{
-      fontSize: italic ? 15 : 17,
-      fontWeight: 600,
+      fontSize: italic ? 15 : 17, fontWeight:600,
       fontStyle: italic ? 'italic' : 'normal',
-      color: '#180028',
-      borderBottom: '1px solid #c4a0d8',
-      paddingBottom: 2,
+      color:'#180028',
+      borderBottom:'1px solid #c4a0d8', paddingBottom:2,
       display: center ? 'inline-block' : 'block',
       minWidth: center ? '55%' : undefined,
-    }}>
-      {value}
-    </div>
-    {sub ? (
-      <div style={{ fontSize: 10, color: '#aaa', fontStyle: 'italic', marginTop: 1 }}>{sub}</div>
-    ) : null}
+    }}>{value}</div>
+    {sub ? <div style={{ fontSize:10, color:'#aaa', fontStyle:'italic', marginTop:1 }}>{sub}</div> : null}
   </div>
 );
 
-const CInline = ({
-  value, sub, w,
-}: {
-  value: string; sub: string; w: number;
-}) => (
-  <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
-    <span style={{
-      fontSize: 15, fontWeight: 600, color: '#180028',
-      borderBottom: '1px solid #c4a0d8',
-      minWidth: w, textAlign: 'center',
-      paddingBottom: 1, display: 'block',
-    }}>
+const CInline = ({ value, sub, w }: { value:string; sub:string; w:number }) => (
+  <div style={{ display:'inline-flex', flexDirection:'column', alignItems:'center' }}>
+    <span style={{ fontSize:15, fontWeight:600, color:'#180028', borderBottom:'1px solid #c4a0d8', minWidth:w, textAlign:'center', paddingBottom:1, display:'block' }}>
       {value}
     </span>
-    {sub ? (
-      <span style={{ fontSize: 8.5, color: '#bbb', fontStyle: 'italic', whiteSpace: 'nowrap' }}>{sub}</span>
-    ) : null}
+    {sub ? <span style={{ fontSize:8.5, color:'#bbb', fontStyle:'italic', whiteSpace:'nowrap' }}>{sub}</span> : null}
   </div>
 );
 
-const Label = ({
-  children,
-  style,
-}: {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-}) => (
-  <span style={{ fontSize: 13, color: '#333', marginBottom: 4, ...style }}>{children}</span>
+const Lbl = ({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) => (
+  <span style={{ fontSize:13, color:'#333', marginBottom:4, ...style }}>{children}</span>
 );
 
 const CDash = () => (
-  <div style={{ textAlign: 'center', margin: '5px 0', color: '#b88fc8', letterSpacing: '0.5em', fontSize: 11 }}>—</div>
+  <div style={{ textAlign:'center', margin:'5px 0', color:'#b88fc8', letterSpacing:'0.5em', fontSize:11 }}>—</div>
 );
 
 export default Index;
